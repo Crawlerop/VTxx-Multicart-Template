@@ -26,4 +26,8 @@ $RECYCLE.BIN/
 *.nes
 labels.txt
 dbg.txt
-
+games.h
+game_names.txt
+games.inc
+names.bin
+settings.h
