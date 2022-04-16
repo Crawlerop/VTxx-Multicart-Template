@@ -153,7 +153,7 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
         BNE @APU_LOOP
 
         lda #$00
-        STA $4016
+        STA $4015
 
         ldy #$04
         jsr WAIT_VBLANK
