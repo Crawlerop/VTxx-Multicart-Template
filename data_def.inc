@@ -155,8 +155,8 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
         lda #$00
         STA $4015
 
-        ldy #$04
-        jsr WAIT_VBLANK
+        ;ldy #$04
+        ;jsr WAIT_VBLANK
 
         LDX #$00
         STX $2010
