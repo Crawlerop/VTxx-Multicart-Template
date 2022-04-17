@@ -354,7 +354,7 @@ void main (void) {
 
 	pad1 = pad_poll(0);
 
-	if ((pad1 & PAD_A|PAD_B) == (PAD_A|PAD_B)) {
+	if ((pad1 & (PAD_A|PAD_B)) == (PAD_A|PAD_B)) {
 		TestMode();
 	}
 
