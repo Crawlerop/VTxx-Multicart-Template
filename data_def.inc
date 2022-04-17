@@ -1,4 +1,5 @@
 LOADROM_OFFSET = $0300
+LOADROM_INIT_BITS = $FF
 
 .define	db	.byte
 .define	dw	.addr
@@ -162,7 +163,7 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
         STX $2010
         stX $2012        
 
-        LDA #$00
+        LDA #LOADROM_INIT_BITS
         ldx #$00        
     @ClearRAM_M:
         ;sta $0000,x
@@ -245,29 +246,22 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
 		; End BS Setup
 
         lda $0407
-        sta $80
+        sta LOADROM_OFFSET+1
         lda $0408
-        sta $81
-    
-    @2:
-        lda ($80), y
-        sta $0700, y
-        iny
-        cpy #$80
-        bcc @2
-        
+        sta LOADROM_OFFSET+2
+
         ldx #$00        
-        lda #$00
+        lda #LOADROM_INIT_BITS
     @ClearRAM_M_2:
         sta $0000,x
         inx
         bne @ClearRAM_M_2
-
-        jsr $0700
+        
         jmp LOADROM_OFFSET
 
     LOADROM:
-    ; Load Routines
+        ; Load Routines
+        jsr $ffff
     @LOADROM_START:
 		.if(VT_412C_BANKSWITCH)
         LDA $0401
@@ -296,7 +290,7 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
 		LSR A
 		LSR A
 
-        LDX #$00
+        LDX #LOADROM_INIT_BITS
 		STA $00        
 
         LDA $0409
@@ -413,15 +407,15 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
 
         STX $4103
         LDX #$00
+        lda #LOADROM_INIT_BITS
     @LOADROM_RAMCLR_2:
-        sta $0700,x
-        inx
-        cpx #$80
-        bcc @LOADROM_RAMCLR_2
+        sta $0400,x
+        inx        
+        bne @LOADROM_RAMCLR_2
 
     @LOADROM_WIPE:
         ldx #$00
-        lda #$00
+        lda #LOADROM_INIT_BITS
     @LOADROM_WIPE_LOOP:
         sta LOADROM_OFFSET,x
         inx
