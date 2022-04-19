@@ -251,7 +251,7 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
         sta LOADROM_OFFSET+2
 
         ldx #$00        
-        lda #LOADROM_INIT_BITS
+        lda #$00
     @ClearRAM_M_2:
         sta $0000,x
         inx
