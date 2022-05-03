@@ -80,7 +80,7 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
 	.else 
 	.if	((vrom_end - vrom) <= $4000) 	
 	.if(bpp)
-    db	.LOBYTE(vrom>>11)+$05 
+    db	.LOBYTE(vrom>>11)+$06 
     db	.LOBYTE((vrom>>15)&$70) 
     .else
     db	.LOBYTE(vrom>>10)+$05 
@@ -89,7 +89,7 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
 	.else 
 	.if	((vrom_end - vrom) <= $8000) 	
 	.if(bpp)
-    db	.LOBYTE(vrom>>11)+$04 
+    db	.LOBYTE(vrom>>11)+$05 
     db	.LOBYTE((vrom>>15)&$70) 
     .else
     db	.LOBYTE(vrom>>10)+$04 
@@ -98,7 +98,7 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
 	.else 
 	.if	((vrom_end - vrom) <= $10000)	
 	.if(bpp)
-    db	.LOBYTE(vrom>>11)+$02 
+    db	.LOBYTE(vrom>>11)+$04 
     db	.LOBYTE((vrom>>15)&$70) 
     .else
     db	.LOBYTE(vrom>>10)+$02 
@@ -107,7 +107,7 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
 	.else 
 	.if	((vrom_end - vrom) <= $20000) 	
 	.if(bpp)
-    db	.LOBYTE(vrom>>11)+$01 
+    db	.LOBYTE(vrom>>11)+$02 
     db	.LOBYTE((vrom>>15)&$70) 
     .else
     db	.LOBYTE(vrom>>10)+$01 
@@ -116,11 +116,21 @@ db (.LOBYTE(bpp << 4) | .LOBYTE((((vrom >> 13) & $20) * 8) & $0f))
 	.else 
 	.if	((vrom_end - vrom) <= $40000) 	
 	.if(bpp)
+    db	.LOBYTE(vrom>>11)+$01 
+    db	.LOBYTE((vrom>>15)&$70) 
+    .else
+    db	.LOBYTE(vrom>>10)+$00 
+	db	.LOBYTE((vrom>>14)&$70) 
+    .endif
+    .else
+    .if	((vrom_end - vrom) <= $80000) 	
+	.if(bpp)
     db	.LOBYTE(vrom>>11)+$00 
     db	.LOBYTE((vrom>>15)&$70) 
     .else
     db	.LOBYTE(vrom>>10)+$00 
 	db	.LOBYTE((vrom>>14)&$70) 
+    .endif
     .endif
 	.endif 
 	.endif 
